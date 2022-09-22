@@ -1,0 +1,16 @@
+﻿{
+    "name": "Kogane.SaveGitInfoToTextFileOnBuild",
+    "rootNamespace": "",
+    "references": ["GUID:46582f93dcf8a1a409b3a84c78e8d2e6","GUID:0a423f63796eede4597d5088a00b3f5e"],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
