@@ -10,6 +10,8 @@ namespace Kogane.Internal
 
         protected override void OnStart( BuildReport report )
         {
+            Refresh();
+
             var setting = SaveGitInfoToTextFileOnBuildSetting.instance;
 
             var commitLogOption = new CommitLogOption
@@ -34,7 +36,13 @@ namespace Kogane.Internal
 
         protected override void OnComplete()
         {
+            Refresh();
+        }
+
+        private static void Refresh()
+        {
             var directoryName = Path.GetDirectoryName( DIRECTORY_NAME );
+            if ( !AssetDatabase.IsValidFolder( directoryName ) ) return;
             AssetDatabase.DeleteAsset( directoryName );
         }
     }
