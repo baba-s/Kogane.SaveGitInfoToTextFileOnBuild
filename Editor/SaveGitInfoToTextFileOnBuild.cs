@@ -10,6 +10,8 @@ namespace Kogane.Internal
 
         protected override void OnStart( BuildReport report )
         {
+            // リリースビルドにテキストファイルが含まれないように
+            // ビルド開始時に削除しています
             Refresh();
 
 #if KOGANE_DISABLE_SAVE_GIT_INFO_TO_TEXT_FILE_ON_BUILD
