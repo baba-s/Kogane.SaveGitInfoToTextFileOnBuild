@@ -13,9 +13,7 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": false,
-    "defineConstraints": [
-        "!KOGANE_DISABLE_SAVE_GIT_INFO_TO_TEXT_FILE_ON_BUILD"
-    ],
+    "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false
 }

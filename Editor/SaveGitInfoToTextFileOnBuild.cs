@@ -12,6 +12,8 @@ namespace Kogane.Internal
         {
             Refresh();
 
+#if KOGANE_DISABLE_SAVE_GIT_INFO_TO_TEXT_FILE_ON_BUILD
+#else
             var setting = SaveGitInfoToTextFileOnBuildSetting.instance;
 
             var commitLogOption = new CommitLogOption
@@ -32,12 +34,16 @@ namespace Kogane.Internal
             var path = $"{DIRECTORY_NAME}/{setting.FileName}";
             File.WriteAllText( path, result );
             AssetDatabase.ImportAsset( path );
+#endif
         }
 
+#if KOGANE_DISABLE_SAVE_GIT_INFO_TO_TEXT_FILE_ON_BUILD
+#else
         protected override void OnComplete()
         {
             Refresh();
         }
+#endif
 
         private static void Refresh()
         {
