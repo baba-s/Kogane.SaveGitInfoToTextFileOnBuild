@@ -1,4 +1,5 @@
-using System.IO;
+﻿using System.IO;
+using System.Text;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 
@@ -34,7 +35,7 @@ namespace Kogane.Internal
 
             Directory.CreateDirectory( DIRECTORY_NAME );
             var path = $"{DIRECTORY_NAME}/{setting.FileName}";
-            File.WriteAllText( path, result );
+            File.WriteAllText( path, result, Encoding.UTF8 );
             AssetDatabase.ImportAsset( path );
 #endif
         }
