@@ -1,13 +1,19 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
+using Kogane.Internal;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 
-namespace Kogane.Internal
+namespace Kogane
 {
-    internal sealed class SaveGitInfoToTextFileOnBuild : CompletableProcessBuildWithReportBase
+    public sealed class SaveGitInfoToTextFileOnBuild : CompletableProcessBuildWithReportBase
     {
         private static readonly string DIRECTORY_NAME = $"Assets/{nameof( SaveGitInfoToTextFileOnBuild )}/Resources";
+
+        public static Func<bool> OnIsRelease { get; set; }
+
+        private static bool IsRelease => OnIsRelease?.Invoke() ?? false;
 
         protected override void OnStart( BuildReport report )
         {
@@ -15,8 +21,8 @@ namespace Kogane.Internal
             // ビルド開始時に削除しています
             Refresh();
 
-#if KOGANE_DISABLE_SAVE_GIT_INFO_TO_TEXT_FILE_ON_BUILD
-#else
+            if ( IsRelease ) return;
+
             var setting = SaveGitInfoToTextFileOnBuildSetting.instance;
 
             var commitLogOption = new CommitLogOption
@@ -37,16 +43,13 @@ namespace Kogane.Internal
             var path = $"{DIRECTORY_NAME}/{setting.FileName}";
             File.WriteAllText( path, result, Encoding.UTF8 );
             AssetDatabase.ImportAsset( path );
-#endif
         }
 
-#if KOGANE_DISABLE_SAVE_GIT_INFO_TO_TEXT_FILE_ON_BUILD
-#else
         protected override void OnComplete()
         {
+            if ( IsRelease ) return;
             Refresh();
         }
-#endif
 
         private static void Refresh()
         {
